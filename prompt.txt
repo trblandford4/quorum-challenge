@@ -1,0 +1,35 @@
+Quorum Coding Interview Question
+
+For many of our users, Quorum's primary value is that of a search engine -- we collect and organize huge amounts of information and then build interfaces that enable our users to sort, filter, and process that information. We've built many different versions of search infrastructure over the years at Quorum, and as our scale and complexity has grown we've needed to create systems that handle larger and more complex datasets.
+
+Today, you're going to build a simple in-memory search engine. You'll have 90 minutes to create your search engine, and the #1 thing that we're looking for is for high-quality, tested code. It's okay if you don't get through all of the prompts below -- getting a high-quality version for step 1 is more important than creating something for step 5.
+
+Step 1
+======
+
+For our simple in-memory search engine, you're going to need to support two methods:
+    1) a method to add new text documents to your "database". This method should take in data of the following format:
+    ```
+    {
+        "id": 4133,
+        "text": "Mary had a little lamb, little lamb, little lamb. Mary had a little lamb whose fleece was white as snow."
+
+    }
+    ```
+    You should build your system such you could easily store a few hundred thousand documents of up to several hundred words apiece. You can assume that every document will be in English, but you can't assume that the text being sent to you will be clean, well-formatted, or only text -- there might be additional data that your search engine should ignore.
+
+    2) a method to search across the information you've entered into the search engine. This method should take in a query and return a list of document IDs that match. Searches should be case insensitive. Try to minimize both the time and space complexity of your search approach: we might want to search a lot of documents quickly, and because this is an in-memory database we don't have a ton of space available so try to reduce your storage needs! Your method should return results as follows:
+
+    search("little") => [4133]
+
+Step 2
+======
+
+Now you've got a basic search engine, but it's pretty simple. Let's add phrase support -- `search("little lamb")` should return 4133, but `search("lamb little")` should not.
+
+Step 3
+======
+
+Let's make your search engine a bit smarter -- let's build basic boolean support. Namely, if I run `search("mary AND lamb")` you should return 4133, or if I run `search("mary OR potato")` you should return 4133, but if I run `search("mary AND potato")` I should return nothing. Make sure that your boolean support builds on your phrase support from above -- if I run `search("mary had AND little lamb")` I should return 4133 but not if I run `search("mary had AND lamb little")`.
+
+Once you're done, we'll rejoin the call and you can walk me through what you've made!
